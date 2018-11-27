@@ -1,9 +1,6 @@
-import sys
-import numpy
+import numpy as np
 import pymbar # for MBAR analysis
-from pymbar import timeseries # for timeseries analysis
 import os
-import os.path
 
 path = os.getcwd()
 
@@ -15,10 +12,10 @@ NumIntermediates = 15
 NumIterations = 145000
 
 # Allocate storage for simulation data
-N_k = numpy.zeros([Numeps], numpy.int32)
-eps = numpy.zeros([Numeps], numpy.float64)
-E_kn = numpy.zeros([Numeps,NumIterations], numpy.float64)
-z_kn = numpy.zeros([Numeps,NumIterations], numpy.float64)
+N_k = np.zeros([Numeps], np.int32)
+eps = np.zeros([Numeps], np.float64)
+E_kn = np.zeros([Numeps,NumIterations], np.float64)
+z_kn = np.zeros([Numeps,NumIterations], np.float64)
 
 # Read in surface strength
 infile = open(os.path.join(path,'surface.dat'), 'r')
@@ -54,15 +51,15 @@ currentv = eps[0]
 
 while(currentv <= eps[Numeps - 1]):
 	if not any( currentv == a for a in eps):
-		val_k = numpy.append(val_k,currentv)
+		val_k = np.append(val_k,currentv)
 	currentv = currentv + delta
-eps = numpy.concatenate((eps,numpy.array(val_k)))
+eps = np.concatenate((eps,np.array(val_k)))
 
 K = len(eps)
 print(eps)
 print(K)
-Nall_k = numpy.zeros([K],numpy.int32)
-Eall_kn = numpy.zeros([K,NumIterations],numpy.float64) 
+Nall_k = np.zeros([K],np.int32)
+Eall_kn = np.zeros([K,NumIterations],np.float64) 
 
 for k in range (Numeps):
 	Eall_kn[k,0:N_k[k]] = E_kn[k,0:N_k[k]]
@@ -71,7 +68,7 @@ for k in range (Numeps):
 # Compute reduced potential energies
 print "--Computing reduced energies..."
 
-u_kln = numpy.zeros([K,K,NumIterations], numpy.float64)
+u_kln = np.zeros([K,K,NumIterations], np.float64)
 
 for k in range(K):
 	for l in range(K):
