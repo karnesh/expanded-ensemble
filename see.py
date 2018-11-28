@@ -6,7 +6,7 @@ path = os.getcwd()
 
 # Parameters and number of subensembles 
 kB = 1.0
-T=0.8
+T = 0.8
 Numeps = 8
 NumIntermediates = 15
 NumIterations = 145000
@@ -17,7 +17,7 @@ eps = np.zeros([Numeps], np.float64)
 E_kn = np.zeros([Numeps,NumIterations], np.float64)
 z_kn = np.zeros([Numeps,NumIterations], np.float64)
 
-# Read in surface strength
+# Read in surface strength (order parameter)
 infile = open(os.path.join(path,'surface.dat'), 'r')
 lines = infile.readlines()
 infile.close()
